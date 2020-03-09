@@ -1,7 +1,7 @@
 704 Jeffery Gordon MERS-COV Brazil 01-07-2017 05-06-2018
 368 Rita Davis EVD Egypt 12-12-2013 08-03-2017
 187 William Burns SARS-COV-2 Argentina 21-08-2003 -
-75 Mrs. Brianna Martin EVD Brazil 27-10-2011 -
+75 Brianna Martin EVD Brazil 27-10-2011 -
 614 Tim Salazar EVD Switzerland 08-02-2005 11-01-2009
 581 Allen Smith MERS-COV Egypt 29-05-2000 13-09-2000
 582 Sierra Montgomery COVID-2019 Denmark 23-11-2002 06-03-2015
@@ -157,7 +157,7 @@
 381 Frank Green MERS-COV Egypt 02-03-2007 24-10-2008
 134 Amy Hinton SARS-COV-2 China 22-09-2017 26-10-2019
 442 Edward Lee FLU-2018 Denmark 16-03-2012 11-07-2018
-951 Mrs. Renee Mathews DDS SARS-COV-2 China 11-09-2005 02-09-2009
+951 Renee Mathews DDS SARS-COV-2 China 11-09-2005 02-09-2009
 540 Haley Reeves EVD Switzerland 27-10-2000 29-10-2019
 725 Kimberly Lewis SARS-COV-2 Turkey 31-12-2001 27-01-2014
 630 David Warren DDS SARS-COV-2 China 13-11-2001 -
@@ -199,10 +199,10 @@
 901 Krista Smith MERS-COV USA 13-10-2005 14-11-2018
 740 Hector Rivers EVD China 16-08-2011 01-11-2011
 847 Edward Fitzpatrick H1N1 France 12-03-2006 30-05-2011
-956 Dr. Kathryn Robertson MERS-COV Vietnam 13-12-2010 24-12-2013
+956 Kathryn Robertson MERS-COV Vietnam 13-12-2010 24-12-2013
 849 Brian Evans MERS-COV Argentina 06-02-2005 20-03-2017
-646 Mr. Brandon Hill FLU-2018 China 03-03-2005 11-08-2005
-115 Mr. Jeffrey Molina H1N1 Argentina 25-12-2002 19-02-2018
+646 Brandon Hill FLU-2018 China 03-03-2005 11-08-2005
+115 Jeffrey Molina H1N1 Argentina 25-12-2002 19-02-2018
 268 Destiny Wilson H1N1 Vietnam 31-05-2009 04-07-2011
 372 Jeremy Perez EVD Italy 10-05-2009 -
 665 Sherry Powell SARS-1 USA 23-11-2010 13-10-2016
@@ -228,7 +228,7 @@
 705 Mark Harper SARS-COV-2 Greece 16-01-2004 21-11-2018
 497 Kathryn Wade MERS-COV Vietnam 23-07-2004 03-03-2013
 755 Amanda Mullins MERS-COV Italy 15-05-2000 27-09-2003
-462 Dr. William Oliver MERS-COV Germany 29-12-2002 -
+462 William Oliver MERS-COV Germany 29-12-2002 -
 327 Erica Barrett H1N1 USA 18-08-2003 26-12-2008
 590 Nicole Smith MERS-COV China 31-07-2012 13-12-2016
 363 Annette Hawkins FLU-2018 Russia 23-10-2001 24-04-2019
@@ -335,7 +335,7 @@
 716 Patrick Davis COVID-2019 Denmark 09-04-2005 16-12-2007
 783 Dawn Mcdonald COVID-2019 Argentina 26-06-2007 -
 248 Preston Hall SARS-COV-2 Brazil 02-08-2007 03-05-2012
-206 Dr. Samantha Mcdonald EVD Brazil 22-10-2001 03-07-2015
+206 Samantha Mcdonald EVD Brazil 22-10-2001 03-07-2015
 683 Michael Davis SARS-COV-2 Russia 12-02-2010 15-02-2016
 172 Joseph Morrow MERS-COV France 29-05-2002 23-12-2016
 510 Mary Bush MERS-COV Denmark 29-07-2006 18-07-2016
@@ -421,7 +421,7 @@
 495 James Salas COVID-2019 Egypt 17-03-2012 18-03-2014
 890 Krista Mcguire MERS-COV Australia 01-09-2009 11-02-2011
 960 Mark Cruz MD EVD Turkey 11-03-2009 11-12-2014
-757 Mrs. Ashley Lawson FLU-2018 Vietnam 24-10-2004 23-07-2018
+757 Ashley Lawson FLU-2018 Vietnam 24-10-2004 23-07-2018
 45 Michael Gutierrez FLU-2018 Egypt 15-11-2002 23-12-2010
 294 Christina Ford FLU-2018 China 22-04-2006 27-01-2008
 514 John Martinez SARS-COV-2 China 02-07-2014 02-02-2019
@@ -475,7 +475,7 @@
 685 Robert Anderson COVID-2019 Turkey 11-02-2017 -
 217 Holly Smith EVD Turkey 09-05-2009 07-02-2011
 33 Joseph Lester COVID-2019 Vietnam 21-02-2013 07-04-2018
-223 Mr. Steve Nguyen SARS-1 Egypt 24-09-2002 28-11-2004
+223 Steve Nguyen SARS-1 Egypt 24-09-2002 28-11-2004
 343 Rebecca Morrison EVD Argentina 04-05-2005 19-08-2008
 245 Kimberly Braun SARS-COV-2 Russia 21-02-2014 25-05-2015
 274 Claudia Robles SARS-1 Russia 08-01-2008 12-04-2018
@@ -593,14 +593,14 @@
 263 Brian Buckley MERS-COV Greece 07-02-2005 -
 200 Kimberly Sullivan FLU-2018 Germany 12-08-2000 15-10-2012
 141 Diane Morgan SARS-COV-2 Turkey 13-06-2017 09-05-2019
-473 Mr. Jason Osborne MERS-COV Denmark 16-12-2001 07-07-2011
+473 Jason Osborne MERS-COV Denmark 16-12-2001 07-07-2011
 366 Gregory Waller COVID-2019 USA 08-01-2017 06-10-2018
 869 Timothy Bailey EVD Argentina 18-02-2001 16-09-2001
 652 Ana Mcgee EVD Greece 09-09-2003 04-05-2018
 235 Katherine Carlson COVID-2019 France 26-06-2011 27-08-2015
 125 Alvin Lee EVD Argentina 30-11-2000 02-02-2007
 492 Ashley Patterson H1N1 China 03-03-2008 23-03-2015
-957 Mr. Daniel Lee MERS-COV Russia 02-07-2005 06-01-2018
+957 Daniel Lee MERS-COV Russia 02-07-2005 06-01-2018
 825 Caroline Calhoun COVID-2019 Denmark 15-11-2004 10-08-2008
 481 Christopher Crane SARS-COV-2 Vietnam 30-09-2000 21-02-2008
 311 Adam Crosby SARS-COV-2 China 21-04-2001 29-10-2001
@@ -693,7 +693,7 @@
 276 Christopher Richardson MERS-COV Turkey 28-06-2004 30-12-2015
 919 Alyssa Kelly COVID-2019 Italy 16-12-2001 12-02-2015
 174 Sophia Smith SARS-1 Argentina 13-07-2000 18-07-2004
-828 Mrs. Alexis Gonzalez MD SARS-COV-2 Italy 29-06-2001 25-04-2003
+828 Alexis Gonzalez MD SARS-COV-2 Italy 29-06-2001 25-04-2003
 894 Michelle Griffith SARS-COV-2 Switzerland 27-01-2010 19-10-2019
 422 Judy Jackson H1N1 Greece 19-10-2014 22-08-2019
 71 Shannon Jimenez COVID-2019 Switzerland 18-11-2001 15-02-2007
@@ -744,7 +744,7 @@
 696 Megan Holloway SARS-COV-2 Denmark 29-03-2001 -
 551 Robert Brown EVD Switzerland 23-03-2003 08-06-2015
 321 Stephen Hoffman SARS-1 USA 03-03-2009 -
-257 Ms. Debra White EVD Germany 05-11-2014 14-01-2018
+257 Debra White EVD Germany 05-11-2014 14-01-2018
 858 Russell Graham FLU-2018 Italy 06-03-2008 23-11-2009
 35 Christopher Clark SARS-1 Germany 16-05-2000 26-01-2017
 118 Gregory Wilson SARS-1 France 09-06-2002 13-04-2011
@@ -789,7 +789,7 @@
 775 Christine Hansen EVD Germany 06-08-2008 10-12-2010
 396 Thomas Freeman SARS-1 Denmark 02-01-2008 24-12-2009
 794 Jeffrey Riley H1N1 China 19-12-2008 27-01-2017
-836 Dr. Anthony Jones COVID-2019 Egypt 23-06-2011 08-06-2013
+836 Anthony Jones COVID-2019 Egypt 23-06-2011 08-06-2013
 221 Michelle Sanchez SARS-1 Germany 24-04-2009 15-12-2018
 237 Ronald Jones COVID-2019 France 20-07-2003 06-01-2004
 543 Stacy Taylor EVD China 23-02-2015 14-10-2019
@@ -870,7 +870,7 @@
 979 Michelle Sparks FLU-2018 Brazil 21-05-2008 18-06-2014
 283 Tiffany Williams FLU-2018 Australia 05-02-2004 -
 564 Tommy White SARS-1 Brazil 11-06-2000 01-03-2018
-151 Mrs. Colleen Gomez MERS-COV Greece 02-09-2000 27-02-2001
+151 Colleen Gomez MERS-COV Greece 02-09-2000 27-02-2001
 799 Joseph Smith Jr. COVID-2019 Germany 10-06-2016 29-08-2018
 454 Barbara Olson H1N1 Argentina 22-09-2004 29-01-2016
 109 Kenneth Carrillo SARS-COV-2 France 25-05-2013 15-10-2016
@@ -950,7 +950,7 @@
 607 Julie Hayes COVID-2019 Russia 01-12-2000 20-04-2003
 5 Jackie Deleon COVID-2019 Australia 25-03-2004 12-06-2012
 570 Amy Benson SARS-1 USA 10-11-2003 17-01-2006
-892 Dr. Madison Fernandez COVID-2019 Brazil 19-01-2009 24-07-2011
+892 Madison Fernandez COVID-2019 Brazil 19-01-2009 24-07-2011
 549 Brian Gibson H1N1 Germany 29-05-2002 30-03-2013
 845 Dale Kelly FLU-2018 Russia 09-03-2005 06-12-2006
 246 Shirley Lee SARS-COV-2 Italy 03-06-2013 16-08-2017
@@ -972,7 +972,7 @@
 735 Brian Johnson MERS-COV Germany 26-01-2010 13-02-2015
 639 John Snyder EVD Denmark 11-06-2011 12-02-2014
 975 Holly Williams FLU-2018 Italy 07-12-2008 09-02-2019
-591 Mr. Jackson White SARS-COV-2 Denmark 16-01-2013 01-11-2017
+591 Jackson White SARS-COV-2 Denmark 16-01-2013 01-11-2017
 158 Clarence Nielsen COVID-2019 Switzerland 18-03-2003 18-01-2006
 326 Erin Edwards EVD Greece 28-10-2012 03-08-2016
 228 Teresa Copeland SARS-1 Brazil 26-03-2006 19-01-2020
@@ -981,7 +981,7 @@
 602 Joshua Spencer H1N1 Greece 12-10-2002 02-10-2005
 920 Phillip Gill H1N1 Denmark 10-09-2009 15-11-2013
 810 Nicolas Morris EVD USA 23-08-2000 28-01-2005
-452 Ms. Ann Leach MD EVD Italy 28-03-2010 15-12-2016
+452 Ann Leach MD EVD Italy 28-03-2010 15-12-2016
 186 Jeremiah Ortega EVD Vietnam 15-10-2008 30-03-2015
 546 Crystal Schroeder MERS-COV Australia 03-04-2008 -
 701 Curtis Henderson EVD Australia 12-10-2001 17-11-2014

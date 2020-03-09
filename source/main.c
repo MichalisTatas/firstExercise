@@ -2,6 +2,53 @@
 #include <stdlib.h>
 #include <string.h>
 
+typedef struct patient{
+    int recordID;
+    char* patientFirstName;
+    char* patientLastName;
+    char* diseaseID;
+    char* country;
+    char* entryDate;
+    char* exitDate;
+    struct patient* next;
+}patient;
+typedef patient* patientPtr;
+
+patientPtr createPatientStruct(char* line)
+{
+    patientPtr current = malloc(sizeof(patient));
+
+    line = strtok(line, " ");
+    current->recordID = atoi(line);
+
+    line = strtok(NULL, " ");
+    current->patientFirstName = malloc(sizeof(line));
+    strcpy(current->patientFirstName, line);
+    
+    line = strtok(NULL, " ");
+    current->patientLastName = malloc(sizeof(line));
+    strcpy(current->patientLastName, line);
+    
+    line = strtok(NULL, " ");
+    current->diseaseID = malloc(sizeof(line));
+    strcpy(current->diseaseID, line);
+    
+    line = strtok(NULL, " ");
+    current->country = malloc(sizeof(line));
+    strcpy(current->country, line);
+    
+    line = strtok(NULL, " ");
+    current->entryDate = malloc(sizeof(line));
+    strcpy(current->entryDate, line);
+    if (line != NULL) {
+        line = strtok(NULL, " ");
+        current->exitDate = malloc(sizeof(line));
+        strcpy(current->exitDate, line);
+    }
+    else current->exitDate = NULL;
+    return current;
+}
+
 int main (int argc, char* argv[])
 {
     int bucketSize; // should it be int?
@@ -42,5 +89,23 @@ int main (int argc, char* argv[])
 
     printf("%s  %d %d %d \n", fileName, diseaseHashtableNumOfEntries, countryHashtableNumOfEntries, bucketSize);
 
+    FILE* filePtr = NULL;
+    filePtr = fopen("./assets/small.txt", "r");
+    if (filePtr == NULL) {
+        printf("Failed to open file\n");
+        return -1;
+    }
+    char* line = NULL;
+    size_t len = 0;
+    patientPtr current;
+    while (getline(&line, &len, filePtr) != -1) {
+        // printf("%s \n",line);
+        current = createPatientStruct(line);
+        printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+    }
+
+    free(filePtr);
+    // free(line);
+    free(fileName);
     return 0;
 }
