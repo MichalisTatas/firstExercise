@@ -1,11 +1,11 @@
 26 Jodi Carey COVID-2019 China 14-12-2007 07-01-2019
 53 Michael Crawford MERS-COV USA 22-06-2003 09-12-2015
 70 Cheryl Simon COVID-2019 Australia 18-08-2007 11-02-2014
-76 Deborah Sims DVM H1N1 Brazil 08-07-2007 05-06-2013
+76 Deborah Sims H1N1 Brazil 08-07-2007 05-06-2013
 93 Charles Rodriguez SARS-COV-2 Egypt 16-11-2017 29-01-2018
 37 Kyle Rodriguez SARS-COV-2 Argentina 07-07-2006 20-06-2008
 87 Laura Henderson EVD Germany 01-11-2006 29-09-2013
-71 Michelle White DVM COVID-2019 China 20-10-2004 -
+71 Michelle White COVID-2019 China 20-10-2004 -
 63 Jessica House MERS-COV Australia 03-07-2001 16-02-2006
 7 Paul Parker SARS-1 Russia 26-03-2004 01-04-2008
 99 Gregory Newton COVID-2019 Russia 01-08-2013 14-09-2019
@@ -37,14 +37,14 @@
 30 Jessica Rose COVID-2019 Germany 14-12-2000 -
 51 Anthony Pittman SARS-COV-2 Egypt 27-10-2011 16-08-2019
 9 Hunter Roman COVID-2019 Denmark 01-09-2002 17-08-2007
-43 Michael Nelson II MERS-COV Vietnam 05-06-2014 02-09-2014
+43 Michael Nelson MERS-COV Vietnam 05-06-2014 02-09-2014
 90 Elizabeth James SARS-1 Denmark 21-01-2012 25-06-2015
 16 Nicholas Thomas FLU-2018 Switzerland 27-04-2007 13-09-2019
 49 Richard Brown H1N1 Switzerland 20-11-2008 28-06-2011
 4 Hannah Ramirez COVID-2019 Denmark 15-01-2005 04-08-2010
 58 Brenda Steele FLU-2018 Turkey 21-03-2019 04-01-2020
 38 Jason Warner SARS-1 Brazil 24-03-2003 03-11-2015
-62 Jesse Mcguire DDS SARS-COV-2 China 07-06-2009 23-07-2017
+62 Jesse Mcguire SARS-COV-2 China 07-06-2009 23-07-2017
 15 Kimberly Green SARS-COV-2 Russia 08-03-2011 31-08-2017
 17 Robin Love COVID-2019 Italy 10-06-2002 -
 59 Chelsea Swanson EVD France 29-12-2006 15-11-2015
@@ -63,7 +63,7 @@
 2 Brandon White FLU-2018 Egypt 06-12-2001 06-07-2012
 44 Jennifer Carpenter FLU-2018 Turkey 02-01-2007 06-02-2020
 10 April Weber MERS-COV Greece 08-03-2005 29-12-2008
-75 Sara Brown MD COVID-2019 China 20-07-2006 25-04-2011
+75 Sara Brown COVID-2019 China 20-07-2006 25-04-2011
 8 Sandy Lewis H1N1 Egypt 05-03-2001 14-02-2011
 69 Cody Gallegos SARS-COV-2 Brazil 28-06-2002 22-03-2004
 25 Taylor Williams H1N1 Greece 20-08-2001 04-09-2015
@@ -72,7 +72,7 @@
 21 Susan James EVD Brazil 03-02-2001 28-02-2019
 19 Stacy Stone EVD USA 08-03-2004 03-10-2015
 34 Christine Brown SARS-COV-2 USA 26-05-2000 07-07-2016
-12 Taylor Wagner DVM H1N1 Vietnam 07-10-2015 05-12-2015
+12 Taylor Wagner H1N1 Vietnam 07-10-2015 05-12-2015
 94 Allen Moore MERS-COV Turkey 20-07-2014 01-04-2019
 85 Meghan Brown COVID-2019 Vietnam 21-04-2003 28-09-2011
 72 Steven Sanders MERS-COV Switzerland 14-04-2001 07-09-2018

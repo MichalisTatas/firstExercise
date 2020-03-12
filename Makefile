@@ -24,10 +24,10 @@ $(BDIR)/$(EXECUTABLE): $(OBJ)
 .PHONY: clean run valgrind
 
 run:
-	./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 15 -b 23
+	./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 20
 
 valgrind:
-	valgrind --leak-check=full ./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 15 -b 23
+	valgrind --leak-check=full ./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 20
 
 clean:
 	rm -f $(ODIR)/*.o

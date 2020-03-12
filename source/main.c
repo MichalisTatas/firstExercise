@@ -46,6 +46,7 @@ patientPtr createPatientStruct(char* line)
         strcpy(current->exitDate, line);
     }
     else current->exitDate = NULL;
+    current->next = NULL;
     return current;
 }
 
@@ -97,13 +98,20 @@ int main (int argc, char* argv[])
     }
     char* line = NULL;
     size_t len = 0;
-    patientPtr current;
+    patientPtr current, head= NULL;
     while (getline(&line, &len, filePtr) != -1) {
         // printf("%s \n",line);
         current = createPatientStruct(line);
-        printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+        current->next = head;
+        head = current;
     }
-
+    current = head;
+    int counter = 0;
+    while (current != NULL) {
+        printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+        current = current->next;
+        counter ++;
+    }
     free(filePtr);
     // free(line);
     free(fileName);
