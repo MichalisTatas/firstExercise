@@ -27,7 +27,7 @@ run:
 	./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 20
 
 valgrind:
-	valgrind --leak-check=full ./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 20
+	valgrind --leak-check=full ./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 24
 
 clean:
 	rm -f $(ODIR)/*.o

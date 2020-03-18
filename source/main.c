@@ -1,18 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-typedef struct patient{
-    int recordID;
-    char* patientFirstName;
-    char* patientLastName;
-    char* diseaseID;
-    char* country;
-    char* entryDate;
-    char* exitDate;
-    struct patient* next;
-}patient;
-typedef patient* patientPtr;
+#include "../include/hashTable.h"
 
 patientPtr createPatientStruct(char* line)
 {
@@ -105,13 +94,14 @@ int main (int argc, char* argv[])
         current->next = head;
         head = current;
     }
+
     current = head;
-    int counter = 0;
     while (current != NULL) {
-        printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+        // printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+
         current = current->next;
-        counter ++;
     }
+    
     free(filePtr);
     // free(line);
     free(fileName);
