@@ -1,11 +1,6 @@
 #include "patient.h"
 #pragma once
 
-int hashFunction(char* str)    //djb2 hash function ;;
-{
-    return (*str)/10;
-}
-
 typedef struct ItemNode
 {
     char* key;
@@ -23,6 +18,12 @@ typedef HTNode* HTNodePtr;
 
 typedef struct HashTable
 {
+    int ptrNum;
     HTNodePtr* table;
 } HashTable;
 typedef HashTable* HashTablePtr;
+
+HashTablePtr HTCreate(int, int);
+HashTablePtr HTInsert(HashTablePtr, char*, patientPtr);
+int HashFunction(char*);
+void HTDestroy(HashTablePtr);

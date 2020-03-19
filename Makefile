@@ -9,10 +9,10 @@ SDIR = source
 
 EXECUTABLE = main
 
-_DEPS = hashTable.h
+_DEPS = hashTable.h patient.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o
+_OBJ = main.o hashTable.o patient.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)
@@ -24,7 +24,7 @@ $(BDIR)/$(EXECUTABLE): $(OBJ)
 .PHONY: clean run valgrind
 
 run:
-	./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 20
+	./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 24
 
 valgrind:
 	valgrind --leak-check=full ./$(BDIR)/$(EXECUTABLE) -p small.txt -h1 10 -h2 10 -b 24

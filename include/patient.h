@@ -12,3 +12,4 @@ typedef struct patient{
 }patient;
 typedef patient* patientPtr;
 
+patientPtr createPatientStruct(char*);

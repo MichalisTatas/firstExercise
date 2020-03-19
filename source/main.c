@@ -2,42 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../include/hashTable.h"
+#include "../include/patient.h"
 
-patientPtr createPatientStruct(char* line)
-{
-    patientPtr current = malloc(sizeof(patient));
-
-    line = strtok(line, " ");
-    current->recordID = atoi(line);
-
-    line = strtok(NULL, " ");
-    current->patientFirstName = malloc(sizeof(line));
-    strcpy(current->patientFirstName, line);
-    
-    line = strtok(NULL, " ");
-    current->patientLastName = malloc(sizeof(line));
-    strcpy(current->patientLastName, line);
-    
-    line = strtok(NULL, " ");
-    current->diseaseID = malloc(sizeof(line));
-    strcpy(current->diseaseID, line);
-    
-    line = strtok(NULL, " ");
-    current->country = malloc(sizeof(line));
-    strcpy(current->country, line);
-    
-    line = strtok(NULL, " ");
-    current->entryDate = malloc(sizeof(line));
-    strcpy(current->entryDate, line);
-    if (line != NULL) {
-        line = strtok(NULL, " ");
-        current->exitDate = malloc(sizeof(line));
-        strcpy(current->exitDate, line);
-    }
-    else current->exitDate = NULL;
-    current->next = NULL;
-    return current;
-}
+//recursively destroy the list and then destroy the hashtable and finally check for leaks before its too late
 
 int main (int argc, char* argv[])
 {
@@ -96,12 +63,14 @@ int main (int argc, char* argv[])
     }
 
     current = head;
-    while (current != NULL) {
-        // printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+    // while (current != NULL) {
+    //     // printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
 
-        current = current->next;
-    }
-    
+    //     current = current->next;
+    // }
+    HashTablePtr ht = HTCreate(diseaseHashtableNumOfEntries, bucketSize);
+    HTInsert(ht, "m", head);
+    HTDestroy(ht);
     free(filePtr);
     // free(line);
     free(fileName);
