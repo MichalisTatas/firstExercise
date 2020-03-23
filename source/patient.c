@@ -11,30 +11,31 @@ patientPtr createPatientStruct(char* line)
     current->recordID = atoi(line);
 
     line = strtok(NULL, " ");
-    current->patientFirstName = malloc(sizeof(line));
+    current->patientFirstName = malloc(strlen(line) + 1);
     strcpy(current->patientFirstName, line);
     
     line = strtok(NULL, " ");
-    current->patientLastName = malloc(sizeof(line));
+    current->patientLastName = malloc(strlen(line) + 1);
     strcpy(current->patientLastName, line);
     
     line = strtok(NULL, " ");
-    current->diseaseID = malloc(sizeof(line));
+    current->diseaseID = malloc(strlen(line) + 1);
     strcpy(current->diseaseID, line);
     
     line = strtok(NULL, " ");
-    current->country = malloc(sizeof(line));
+    current->country = malloc(strlen(line) + 1);
     strcpy(current->country, line);
     
     line = strtok(NULL, " ");
-    current->entryDate = malloc(sizeof(line));
+    current->entryDate = malloc(strlen(line) + 1);
     strcpy(current->entryDate, line);
     if (line != NULL) {
         line = strtok(NULL, " ");
-        current->exitDate = malloc(sizeof(line));
+        current->exitDate = malloc(strlen(line) + 1);
         strcpy(current->exitDate, line);
     }
     else current->exitDate = NULL;
     current->next = NULL;
+
     return current;
 }

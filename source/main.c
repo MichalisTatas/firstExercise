@@ -4,7 +4,20 @@
 #include "../include/hashTable.h"
 #include "../include/patient.h"
 
-//recursively destroy the list and then destroy the hashtable and finally check for leaks before its too late
+void destroyList(patientPtr patient)
+{
+    if (patient == NULL)
+        return;
+    destroyList(patient->next);
+    free(patient->country);
+    free(patient->diseaseID);
+    free(patient->entryDate);
+    free(patient->exitDate);
+    free(patient->patientFirstName);
+    free(patient->patientLastName);
+    free(patient);
+
+}
 
 int main (int argc, char* argv[])
 {
@@ -18,7 +31,7 @@ int main (int argc, char* argv[])
 
     for (int i=0; i<argc; i++) {
         if (!strcmp(argv[i], "-p")) {
-            if ((fileName = malloc(sizeof(argv[i+1]))) == NULL) {
+            if ((fileName = malloc(strlen(argv[i+1])+1)) == NULL) {
                 printf("Wrong input malloc failed to allocate space\n");
                 return -1;
             }
@@ -54,7 +67,7 @@ int main (int argc, char* argv[])
     }
     char* line = NULL;
     size_t len = 0;
-    patientPtr current, head= NULL;
+    patientPtr current, head = NULL;
     while (getline(&line, &len, filePtr) != -1) {
         // printf("%s \n",line);
         current = createPatientStruct(line);
@@ -63,16 +76,19 @@ int main (int argc, char* argv[])
     }
 
     current = head;
-    // while (current != NULL) {
-    //     // printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
-
-    //     current = current->next;
-    // }
     HashTablePtr ht = HTCreate(diseaseHashtableNumOfEntries, bucketSize);
-    HTInsert(ht, "m", head);
+    while (current != NULL) {
+        // printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
+        HTInsert(ht, current->country, current);
+        current = current->next;
+    }
+
+    destroyList(head);
+
+    HTPrint(ht);
     HTDestroy(ht);
-    free(filePtr);
-    // free(line);
+    fclose(filePtr);
+    free(line);
     free(fileName);
     return 0;
 }

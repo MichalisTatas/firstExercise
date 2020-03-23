@@ -4,7 +4,7 @@
 typedef struct ItemNode
 {
     char* key;
-    patientPtr PatienData;
+    patientPtr PatientData;
     //ptr sto tree
 } ItemNode;
 typedef ItemNode* ItemNodePtr;
@@ -12,18 +12,20 @@ typedef ItemNode* ItemNodePtr;
 typedef struct HTNode
 {
     struct HTNode* next;
-    ItemNodePtr array[];
+    ItemNodePtr* array;
 } HTNode;
 typedef HTNode* HTNodePtr;
 
 typedef struct HashTable
 {
+    int size;
     int ptrNum;
     HTNodePtr* table;
 } HashTable;
 typedef HashTable* HashTablePtr;
 
+void HTPrint(HashTablePtr);
 HashTablePtr HTCreate(int, int);
-HashTablePtr HTInsert(HashTablePtr, char*, patientPtr);
+void HTInsert(HashTablePtr, char*, patientPtr);
 int HashFunction(char*);
 void HTDestroy(HashTablePtr);
