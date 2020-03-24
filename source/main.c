@@ -4,21 +4,6 @@
 #include "../include/hashTable.h"
 #include "../include/patient.h"
 
-void destroyList(patientPtr patient)
-{
-    if (patient == NULL)
-        return;
-    destroyList(patient->next);
-    free(patient->country);
-    free(patient->diseaseID);
-    free(patient->entryDate);
-    free(patient->exitDate);
-    free(patient->patientFirstName);
-    free(patient->patientLastName);
-    free(patient);
-
-}
-
 int main (int argc, char* argv[])
 {
     int bucketSize; // should it be int?
@@ -83,7 +68,7 @@ int main (int argc, char* argv[])
         current = current->next;
     }
 
-    destroyList(head);
+    destroyPatientList(head);
 
     HTPrint(ht);
     HTDestroy(ht);

@@ -13,3 +13,4 @@ typedef struct patient{
 typedef patient* patientPtr;
 
 patientPtr createPatientStruct(char*);
+void destroyPatientList(patientPtr);

@@ -39,3 +39,18 @@ patientPtr createPatientStruct(char* line)
 
     return current;
 }
+
+void destroyPatientList(patientPtr patient)
+{
+    if (patient == NULL)
+        return;
+    destroyPatientList(patient->next);
+    free(patient->country);
+    free(patient->diseaseID);
+    free(patient->entryDate);
+    free(patient->exitDate);
+    free(patient->patientFirstName);
+    free(patient->patientLastName);
+    free(patient);
+
+}
