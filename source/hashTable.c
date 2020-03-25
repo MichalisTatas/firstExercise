@@ -115,4 +115,3 @@ void HTDestroy(HashTablePtr hashTable)
     free(hashTable->table);
     free(hashTable);
 }
-

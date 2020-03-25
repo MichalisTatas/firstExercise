@@ -54,7 +54,6 @@ int main (int argc, char* argv[])
     size_t len = 0;
     patientPtr current, head = NULL;
     while (getline(&line, &len, filePtr) != -1) {
-        // printf("%s \n",line);
         current = createPatientStruct(line);
         current->next = head;
         head = current;
@@ -62,15 +61,16 @@ int main (int argc, char* argv[])
 
     current = head;
     HashTablePtr ht = HTCreate(diseaseHashtableNumOfEntries, bucketSize);
+
+    //sort the list first then insert in the hashtables and the trees
     while (current != NULL) {
-        // printf("%d %s %s %s %s %s %s \n", current->recordID, current->patientFirstName, current->patientLastName, current->diseaseID, current->country, current->entryDate, current->exitDate);
         HTInsert(ht, current->country, current);
         current = current->next;
     }
 
-    destroyPatientList(head);
-
     HTPrint(ht);
+
+    destroyPatientList(head);
     HTDestroy(ht);
     fclose(filePtr);
     free(line);

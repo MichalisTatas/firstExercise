@@ -3,9 +3,31 @@
 #include <stdlib.h>
 #include <string.h>
 
+int compareDates(datePtr date1, datePtr date2)
+{
+    if (date1->year > date2->year)
+        return 1;
+    else if (date1->year < date2->year)
+        return -1;
+    else {
+        if (date1->month > date2->month)
+            return 1;
+        else if (date1->month < date2->month)
+            return -1;
+        else {
+            if (date1->day > date2->day)
+                return 1;
+            else if (date1->day < date2->day)
+                return -1;
+        }
+    }
+    return 0;
+}
+
 patientPtr createPatientStruct(char* line)
 {
     patientPtr current = malloc(sizeof(patient));
+    char token[] = " -";
 
     line = strtok(line, " ");
     current->recordID = atoi(line);
@@ -25,16 +47,28 @@ patientPtr createPatientStruct(char* line)
     line = strtok(NULL, " ");
     current->country = malloc(strlen(line) + 1);
     strcpy(current->country, line);
-    
-    line = strtok(NULL, " ");
-    current->entryDate = malloc(strlen(line) + 1);
-    strcpy(current->entryDate, line);
-    if (line != NULL) {
-        line = strtok(NULL, " ");
-        current->exitDate = malloc(strlen(line) + 1);
-        strcpy(current->exitDate, line);
+
+    current->entryDate = malloc(sizeof(date));
+    line = strtok(NULL, token);
+    current->entryDate->day = atoi(line);
+    line = strtok(NULL, token);
+    current->entryDate->month = atoi(line);
+    line = strtok(NULL, token);
+    current->entryDate->year = atoi(line);
+
+    line = strtok(NULL, token);
+
+    if (strlen(line) >1 ) {           //CHANGE THIS THING
+        current->exitDate = malloc(sizeof(date));
+        current->exitDate->day = atoi(line);
+        line = strtok(NULL, token);
+        current->exitDate->month = atoi(line);
+        line = strtok(NULL, token);
+        current->exitDate->year = atoi(line);
     }
-    else current->exitDate = NULL;
+    else
+        current->exitDate = NULL;
+
     current->next = NULL;
 
     return current;
