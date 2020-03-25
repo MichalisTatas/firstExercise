@@ -11,6 +11,42 @@ treeNodePtr createNode(patientPtr patient, char* key)
     node->left = NULL;
     node->height = 1;
     strcpy(node->key, key);
+    return node;
+}
+
+int max(int a, int b)
+{
+    if (a > b)
+        return a;
+    return b;
+}
+
+treeNodePtr rightRotation(treeNodePtr node)
+{
+    treeNodePtr nodeLeft = node->left;
+    treeNodePtr right = nodeLeft->right;
+    
+    nodeLeft->right = node;
+    node->left = right;
+
+    node->height = 1 + max(node->left->height, node->right->height);
+    nodeLeft->height = 1 + max(nodeLeft->left->height, nodeLeft->right->height);
+
+    return nodeLeft;
+}
+
+treeNodePtr leftRotation(treeNodePtr node)
+{
+    treeNodePtr nodeRight = node->right;
+    treeNodePtr left = nodeRight->left;
+
+    nodeRight->left = node;
+    node->right = left;
+
+    node->height = 1 + max(node->left->height, node->right->height);
+    nodeRight->height = 1 + max(nodeRight->left->height, nodeRight->right->height);
+
+    return nodeRight;
 }
 
 treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient, char* key)
@@ -46,4 +82,6 @@ treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient, char* key)
     //left left
     if ((tree->left->height - tree->right->height) > 1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == 1)
         return rightRotation(tree);
+
+    return tree;
 }
