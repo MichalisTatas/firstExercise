@@ -3,6 +3,7 @@
 #include <string.h>
 #include "../include/hashTable.h"
 #include "../include/patient.h"
+#include "../include/avlTree.h"
 
 int main (int argc, char* argv[])
 {
@@ -63,15 +64,20 @@ int main (int argc, char* argv[])
     HashTablePtr ht = HTCreate(diseaseHashtableNumOfEntries, bucketSize);
 
     //sort the list first then insert in the hashtables and the trees
+    treeNodePtr root = NULL;
     while (current != NULL) {
         HTInsert(ht, current->country, current);
+        if (!strcmp(current->diseaseID, "COVID-2019"))
+            root = AVLInsert(root, current, current->diseaseID);
         current = current->next;
-    }
 
+    }
+    preorder(root);
     HTPrint(ht);
 
-    destroyPatientList(head);
+    AVLDestroy(root);
     HTDestroy(ht);
+    destroyPatientList(head);
     fclose(filePtr);
     free(line);
     free(fileName);

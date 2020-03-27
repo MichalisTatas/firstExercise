@@ -10,4 +10,6 @@ typedef struct treeNode
 } treeNode;
 typedef treeNode* treeNodePtr;
 
+void AVLDestroy(treeNodePtr);
+void preorder(treeNodePtr);
 treeNodePtr AVLInsert(treeNodePtr, patientPtr, char*);

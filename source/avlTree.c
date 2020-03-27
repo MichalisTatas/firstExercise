@@ -10,6 +10,7 @@ treeNodePtr createNode(patientPtr patient, char* key)
     node->right = NULL;
     node->left = NULL;
     node->height = 1;
+    node->key = malloc(strlen(key) + 1);
     strcpy(node->key, key);
     return node;
 }
@@ -21,6 +22,13 @@ int max(int a, int b)
     return b;
 }
 
+int getHeight(treeNodePtr node)
+{
+    if (node == NULL)
+        return 0;
+    return node->height;
+}
+
 treeNodePtr rightRotation(treeNodePtr node)
 {
     treeNodePtr nodeLeft = node->left;
@@ -29,8 +37,8 @@ treeNodePtr rightRotation(treeNodePtr node)
     nodeLeft->right = node;
     node->left = right;
 
-    node->height = 1 + max(node->left->height, node->right->height);
-    nodeLeft->height = 1 + max(nodeLeft->left->height, nodeLeft->right->height);
+    node->height = 1 + max(getHeight(node->left), getHeight(node->right));
+    nodeLeft->height = 1 + max(getHeight(nodeLeft->left), getHeight(nodeLeft->right));
 
     return nodeLeft;
 }
@@ -43,10 +51,17 @@ treeNodePtr leftRotation(treeNodePtr node)
     nodeRight->left = node;
     node->right = left;
 
-    node->height = 1 + max(node->left->height, node->right->height);
-    nodeRight->height = 1 + max(nodeRight->left->height, nodeRight->right->height);
+    node->height = 1 + max(getHeight(node->left), getHeight(node->right));
+    nodeRight->height = 1 + max(getHeight(nodeRight->left), getHeight(nodeRight->right));
 
     return nodeRight;
+}
+
+int getBalance(treeNodePtr node)
+{
+    if (node == NULL)
+        return 0;
+    return getHeight(node->left) - getHeight(node->right);
 }
 
 treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient, char* key)
@@ -60,28 +75,51 @@ treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient, char* key)
     else
         return tree;                // if equal dont insert into tree
 
-    tree->height = 1 + max(tree->left->height, tree->right->height);
+    tree->height = 1 + max(getHeight(tree->left), getHeight(tree->right));
+
+// DO I NEED TO CHECK IF TREE IS NULL ?????
 
     //right right
-    if ((tree->left->height - tree->right->height) < -1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == -1)
+    if (getHeight(tree->left) - getHeight(tree->right) < -1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == -1)
         return leftRotation(tree);
 
-    //right left
-    if ((tree->left->height - tree->right->height) < -1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == 1) {
+    // //right left
+    if (getHeight(tree->left) - getHeight(tree->right) < -1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == 1) {
         tree->right = rightRotation(tree->right);
         return leftRotation(tree);
     }
     
 
-    //left right
-    if ((tree->left->height - tree->right->height) > 1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == -1) {
+    // //left right
+    if (getHeight(tree->left) - getHeight(tree->right) > 1 && compareDates(tree->left->patient->entryDate, patient->entryDate) == -1) {
         tree->left = leftRotation(tree->left);
         return rightRotation(tree);
     }
 
-    //left left
-    if ((tree->left->height - tree->right->height) > 1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == 1)
+    // //left left
+    if (getHeight(tree->left) - getHeight(tree->right) > 1 && compareDates(tree->left->patient->entryDate, patient->entryDate) == 1)
         return rightRotation(tree);
 
     return tree;
+}
+
+void preorder(treeNodePtr node)
+{
+    if (node != NULL)
+    {
+        printf ("%d-%d-%d\n", node->patient->entryDate->day, node->patient->entryDate->month, node->patient->entryDate->year);
+        preorder(node->left);
+        preorder(node->right);
+    }
+}
+
+void AVLDestroy(treeNodePtr node)
+{
+    if (node != NULL)
+    {
+        AVLDestroy(node->left);
+        AVLDestroy(node->right);
+        free(node->key);
+        free(node);
+    }
 }
