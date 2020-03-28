@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+
 int compareDates(datePtr date1, datePtr date2)
 {
     if (date1->year > date2->year)
@@ -22,6 +23,34 @@ int compareDates(datePtr date1, datePtr date2)
         }
     }
     return 0;
+}
+
+patientPtr patientListInsert(patientPtr head, patientPtr current)
+{
+    if (head == NULL)
+        return current;
+
+    patientPtr temp = head;
+
+    if (compareDates(head->entryDate, current->entryDate) == 1) {
+        current->next = head;
+        head = current;
+    }
+    else {
+        while (temp->next != NULL) {
+            if (compareDates(temp->next->entryDate, current->entryDate) == 1) {
+                current->next = temp->next;
+                temp->next = current;
+                return head;
+            }
+            temp = temp->next;
+        }
+        if (temp->next == NULL)
+            temp->next = current;
+
+    }
+
+    return head;
 }
 
 patientPtr createPatientStruct(char* line)
@@ -72,11 +101,6 @@ patientPtr createPatientStruct(char* line)
     current->next = NULL;
 
     return current;
-}
-
-void sortPatientList(patientPtr head)
-{
-    
 }
 
 void destroyPatientList(patientPtr patient)

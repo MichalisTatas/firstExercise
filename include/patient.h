@@ -20,7 +20,7 @@ typedef struct patient{
 }patient;
 typedef patient* patientPtr;
 
-void sortPatientList(patientPtr);
+patientPtr patientListInsert(patientPtr, patientPtr);
 int compareDates(datePtr, datePtr);
 patientPtr createPatientStruct(char*);
 void destroyPatientList(patientPtr);

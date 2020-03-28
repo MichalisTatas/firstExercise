@@ -56,8 +56,9 @@ int main (int argc, char* argv[])
     patientPtr current, head = NULL;
     while (getline(&line, &len, filePtr) != -1) {
         current = createPatientStruct(line);
-        current->next = head;
-        head = current;
+        head = patientListInsert(head, current);
+        // current->next = head;
+        // head = current;
     }
 
     current = head;
@@ -66,6 +67,7 @@ int main (int argc, char* argv[])
     //sort the list first then insert in the hashtables and the trees
     treeNodePtr root = NULL;
     while (current != NULL) {
+        // printf("%d %d %d \n", current->entryDate->day, current->entryDate->month, current->entryDate->year);
         HTInsert(ht, current->country, current);
         if (!strcmp(current->diseaseID, "COVID-2019"))
             root = AVLInsert(root, current, current->diseaseID);
