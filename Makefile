@@ -9,10 +9,10 @@ SDIR = source
 
 EXECUTABLE = main
 
-_DEPS = hashTable.h patient.h avlTree.h
+_DEPS = hashTable.h patient.h avlTree.h binaryHeap.h queue.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o hashTable.o patient.o avlTree.o
+_OBJ = main.o hashTable.o patient.o avlTree.o binaryHeap.o queue.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)

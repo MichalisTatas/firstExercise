@@ -49,21 +49,21 @@ patientPtr createPatientStruct(char* line)
     strcpy(current->country, line);
 
     current->entryDate = malloc(sizeof(date));
-    line = strtok(NULL, token);
+    line = strtok(NULL, "-");
     current->entryDate->day = atoi(line);
-    line = strtok(NULL, token);
+    line = strtok(NULL, "-");
     current->entryDate->month = atoi(line);
-    line = strtok(NULL, token);
+    line = strtok(NULL, " ");
     current->entryDate->year = atoi(line);
 
     line = strtok(NULL, token);
 
-    if (strlen(line) >1 ) {           //CHANGE THIS THING
+    if (strlen(line) > 1 ) {           //CHANGE THIS THING
         current->exitDate = malloc(sizeof(date));
         current->exitDate->day = atoi(line);
-        line = strtok(NULL, token);
+        line = strtok(NULL, "-");
         current->exitDate->month = atoi(line);
-        line = strtok(NULL, token);
+        line = strtok(NULL, " ");
         current->exitDate->year = atoi(line);
     }
     else
@@ -72,6 +72,11 @@ patientPtr createPatientStruct(char* line)
     current->next = NULL;
 
     return current;
+}
+
+void sortPatientList(patientPtr head)
+{
+    
 }
 
 void destroyPatientList(patientPtr patient)

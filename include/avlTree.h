@@ -5,8 +5,8 @@ typedef struct treeNode
     char* key;
     int height;
     patientPtr patient;
-    struct treeNode* right;
     struct treeNode* left;
+    struct treeNode* right;
 } treeNode;
 typedef treeNode* treeNodePtr;
 
