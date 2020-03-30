@@ -1,0 +1,39 @@
+
+add a .h and .c for data structures i.e. hash tables, trees, etc
+# firstExercise
+
+done : 
+
+- created hash tabl
+- created avl tree
+- sorted list of patients
+- finished q
+
+to do :
+
+- finish binary max heap
+- start question fullfiling prerequisits
+
+
+
+UNDERSTANDING :: 
+
+- diseaseHashTable : 
+
+	has disease name for key
+	
+	for each separate disease in this ht we have a pointer to an avl tree which stores
+	every patient with the same disease
+
+
+- countryHashTable :
+
+	has country name for key
+
+	for each separate country every node holds a pointer to an avl tree which stores
+	every patient taken health care in this country
+
+** EVERY TREE HAS FOR KEY THE PATIENT'S ENTRYDATE**
+
+for the trees make a function to locate if a tree already exists and return it to add more patients
+maybe of return null

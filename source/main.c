@@ -4,6 +4,20 @@
 #include "../include/hashTable.h"
 #include "../include/patient.h"
 #include "../include/avlTree.h"
+#include "../include/diseaseMonitor.h"
+
+
+bool existIn(patientPtr list, patientPtr patient)
+{
+    patientPtr temp = list;
+    while (temp!=NULL){
+        if (strcmp(temp->recordID, patient->recordID) == 0)
+            return true;
+        temp=temp->next;
+    }
+    return false;
+
+}
 
 int main (int argc, char* argv[])
 {
@@ -43,8 +57,6 @@ int main (int argc, char* argv[])
         }
     }
 
-    printf("%s  %d %d %d \n", fileName, diseaseHashtableNumOfEntries, countryHashtableNumOfEntries, bucketSize);
-
     FILE* filePtr = NULL;
     filePtr = fopen("./assets/small.txt", "r");
     if (filePtr == NULL) {
@@ -53,33 +65,39 @@ int main (int argc, char* argv[])
     }
     char* line = NULL;
     size_t len = 0;
-    patientPtr current, head = NULL;
+    patientPtr current= NULL, head = NULL;
     while (getline(&line, &len, filePtr) != -1) {
+        line = strtok(line, "\n");
         current = createPatientStruct(line);
-        head = patientListInsert(head, current);
-        // current->next = head;
-        // head = current;
+        if (!existIn(head, current)) {
+            if (current->exitDate != NULL)
+                if (compareDates(current->entryDate, current->exitDate) == -1)
+                    head = patientListInsert(head, current);
+        }
+        else
+            printf("record with record id %s is rejected \n", current->recordID);
     }
 
     current = head;
-    HashTablePtr ht = HTCreate(diseaseHashtableNumOfEntries, bucketSize);
+    HashTablePtr diseaseHashtable = HTCreate(diseaseHashtableNumOfEntries, bucketSize);
+    HashTablePtr countryHashtable = HTCreate(countryHashtableNumOfEntries, bucketSize);
+    treeNodePtr checkTree = NULL;
 
-    //sort the list first then insert in the hashtables and the trees
-    treeNodePtr root = NULL;
     while (current != NULL) {
-        // printf("%d %d %d \n", current->entryDate->day, current->entryDate->month, current->entryDate->year);
-        HTInsert(ht, current->country, current);
-        if (!strcmp(current->diseaseID, "COVID-2019"))
-            root = AVLInsert(root, current, current->diseaseID);
+        // printf("%s --> %d %d %d\n", current->recordID, current->exitDate->day, current->exitDate->month, current->exitDate->year);
+        HTInsert(diseaseHashtable, current->diseaseID, current);
+        HTInsert(countryHashtable, current->country, current);
         current = current->next;
-
     }
-    preorder(root);
-    HTPrint(ht);
-
-    AVLDestroy(root);
-    HTDestroy(ht);
-    destroyPatientList(head);
+    // preorder(checkTree);
+    HTPrint(countryHashtable);
+    HTPrint(diseaseHashtable);
+    while(getline(&line, &len, stdin) != -1) {
+        strtok(line, "\n");
+        if (diseaseMonitor(line, head, diseaseHashtable, countryHashtable, head) == -1)
+            break;
+    }
+    AVLDestroy(checkTree);
     fclose(filePtr);
     free(line);
     free(fileName);

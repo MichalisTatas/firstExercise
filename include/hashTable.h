@@ -1,11 +1,11 @@
-#include "patient.h"
 #pragma once
+#include "patient.h"
+#include "avlTree.h"
 
 typedef struct ItemNode
 {
     char* key;
-    patientPtr PatientData;
-    //ptr sto tree
+    treeNodePtr tree;
 } ItemNode;
 typedef ItemNode* ItemNodePtr;
 
@@ -24,8 +24,9 @@ typedef struct HashTable
 } HashTable;
 typedef HashTable* HashTablePtr;
 
+int findTree(HTNodePtr, char*, int);
 void HTPrint(HashTablePtr);
 HashTablePtr HTCreate(int, int);
 void HTInsert(HashTablePtr, char*, patientPtr);
-int HashFunction(char*);
+int hashFunction(char*);
 void HTDestroy(HashTablePtr);

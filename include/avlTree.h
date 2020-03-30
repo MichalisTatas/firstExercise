@@ -1,8 +1,9 @@
+#pragma once
+#include <stdbool.h>
 #include "patient.h"
 
 typedef struct treeNode
 {
-    char* key;
     int height;
     patientPtr patient;
     struct treeNode* left;
@@ -10,6 +11,7 @@ typedef struct treeNode
 } treeNode;
 typedef treeNode* treeNodePtr;
 
+bool existInTree(treeNodePtr, patientPtr);
 void AVLDestroy(treeNodePtr);
 void preorder(treeNodePtr);
-treeNodePtr AVLInsert(treeNodePtr, patientPtr, char*);
+treeNodePtr AVLInsert(treeNodePtr, patientPtr);

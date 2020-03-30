@@ -9,7 +9,7 @@ typedef struct date
 typedef date* datePtr;
 
 typedef struct patient{
-    int recordID;
+    char* recordID;
     char* patientFirstName;
     char* patientLastName;
     char* diseaseID;
@@ -20,6 +20,8 @@ typedef struct patient{
 }patient;
 typedef patient* patientPtr;
 
+datePtr createDate(char*);
+void replaceExitDate(patientPtr, char*, char*);
 patientPtr patientListInsert(patientPtr, patientPtr);
 int compareDates(datePtr, datePtr);
 patientPtr createPatientStruct(char*);

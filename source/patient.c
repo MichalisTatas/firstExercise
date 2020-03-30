@@ -2,7 +2,43 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <wordexp.h>
 
+datePtr createDate(char* line)
+{
+    datePtr dt = malloc(sizeof(date));
+    line = strtok(line, "-");
+    dt->day = atoi(line);
+    line = strtok(NULL, "-");
+    dt->month = atoi(line);
+    line = strtok(NULL, " ");
+    dt->year = atoi(line);
+    return dt;
+}
+
+void replaceExitDate(patientPtr head, char* recordID, char* dt)
+{
+    datePtr date;
+    if (strcmp(dt, "-"))
+        date = createDate(dt);
+    else 
+        date = NULL;
+    patientPtr temp = head;
+    while (temp->next != NULL){
+        if (!strcmp(temp->recordID, recordID)) {
+            if (temp->exitDate == NULL) {
+                temp->exitDate = malloc(sizeof(date));
+                temp->exitDate = date;
+            }
+            else {
+                free(temp->exitDate);
+                temp->exitDate = date;
+            }
+            return;
+        }
+        temp = temp->next;
+    }
+}
 
 int compareDates(datePtr date1, datePtr date2)
 {
@@ -53,53 +89,115 @@ patientPtr patientListInsert(patientPtr head, patientPtr current)
     return head;
 }
 
+// patientPtr createPatientStruct(char* line)
+// {
+//     patientPtr current = malloc(sizeof(patient));
+//     char token[] = " -";
+
+//     line = strtok(line, " ");
+//     current->recordID = malloc(strlen(line)+1);
+//     strcpy(current->recordID, line);
+
+//     line = strtok(NULL, " ");
+//     current->patientFirstName = malloc(strlen(line) + 1);
+//     strcpy(current->patientFirstName, line);
+    
+//     line = strtok(NULL, " ");
+//     current->patientLastName = malloc(strlen(line) + 1);
+//     strcpy(current->patientLastName, line);
+    
+//     line = strtok(NULL, " ");
+//     current->diseaseID = malloc(strlen(line) + 1);
+//     strcpy(current->diseaseID, line);
+    
+//     line = strtok(NULL, " ");
+//     current->country = malloc(strlen(line) + 1);
+//     strcpy(current->country, line);
+
+//     current->entryDate = malloc(sizeof(date));
+//     line = strtok(NULL, "-");
+//     current->entryDate->day = atoi(line);
+//     line = strtok(NULL, "-");
+//     current->entryDate->month = atoi(line);
+//     line = strtok(NULL, " ");
+//     current->entryDate->year = atoi(line);
+
+//     line = strtok(NULL, token);
+
+//     if (strlen(line) > 1 ) {           //CHANGE THIS THING
+//         current->exitDate = malloc(sizeof(date));
+//         current->exitDate->day = atoi(line);
+//         line = strtok(NULL, "-");
+//         current->exitDate->month = atoi(line);
+//         line = strtok(NULL, " ");
+//         current->exitDate->year = atoi(line);
+//     }
+//     else
+//         current->exitDate = NULL;
+
+//     current->next = NULL;
+
+//     return current;
+// }
+
 patientPtr createPatientStruct(char* line)
 {
+
+    wordexp_t p;
+    wordexp(line, &p, 0);
+
     patientPtr current = malloc(sizeof(patient));
-    char token[] = " -";
+    // char token[] = " -";
 
-    line = strtok(line, " ");
-    current->recordID = atoi(line);
+    // line = strtok(line, " ");
+    current->recordID = malloc(strlen(p.we_wordv[0]) + 1);
+    strcpy(current->recordID, p.we_wordv[0]);
 
-    line = strtok(NULL, " ");
-    current->patientFirstName = malloc(strlen(line) + 1);
-    strcpy(current->patientFirstName, line);
+    // line = strtok(NULL, " ");
+    current->patientFirstName = malloc(strlen(p.we_wordv[1]) + 1);
+    strcpy(current->patientFirstName, p.we_wordv[1]);
     
-    line = strtok(NULL, " ");
-    current->patientLastName = malloc(strlen(line) + 1);
-    strcpy(current->patientLastName, line);
+    // line = strtok(NULL, " ");
+    current->patientLastName = malloc(strlen(p.we_wordv[2]) + 1);
+    strcpy(current->patientLastName, p.we_wordv[2]);
     
-    line = strtok(NULL, " ");
-    current->diseaseID = malloc(strlen(line) + 1);
-    strcpy(current->diseaseID, line);
+    // line = strtok(NULL, " ");
+    current->diseaseID = malloc(strlen(p.we_wordv[3]) + 1);
+    strcpy(current->diseaseID, p.we_wordv[3]);
     
-    line = strtok(NULL, " ");
-    current->country = malloc(strlen(line) + 1);
-    strcpy(current->country, line);
+    // line = strtok(NULL, " ");
+    current->country = malloc(strlen(p.we_wordv[4]) + 1);
+    strcpy(current->country, p.we_wordv[4]);
 
-    current->entryDate = malloc(sizeof(date));
-    line = strtok(NULL, "-");
-    current->entryDate->day = atoi(line);
-    line = strtok(NULL, "-");
-    current->entryDate->month = atoi(line);
-    line = strtok(NULL, " ");
-    current->entryDate->year = atoi(line);
+    current->entryDate = createDate(p.we_wordv[5]);
 
-    line = strtok(NULL, token);
-
-    if (strlen(line) > 1 ) {           //CHANGE THIS THING
-        current->exitDate = malloc(sizeof(date));
-        current->exitDate->day = atoi(line);
-        line = strtok(NULL, "-");
-        current->exitDate->month = atoi(line);
-        line = strtok(NULL, " ");
-        current->exitDate->year = atoi(line);
-    }
-    else
+    if (strcmp(p.we_wordv[6], "-"))
+        current->exitDate = createDate(p.we_wordv[6]);
+    else 
         current->exitDate = NULL;
+    // current->entryDate = malloc(sizeof(date));
+    // line = strtok(NULL, "-");
+    // current->entryDate->day = atoi(line);
+    // line = strtok(NULL, "-");
+    // current->entryDate->month = atoi(line);
+    // line = strtok(NULL, " ");
+    // current->entryDate->year = atoi(line);
 
-    current->next = NULL;
+    // line = strtok(NULL, token);
 
+    // if (strcmp(line, "-") ) {           //CHANGE THIS THING
+    //     current->exitDate = malloc(sizeof(date));
+    //     current->exitDate->day = atoi(line);
+    //     line = strtok(NULL, "-");
+    //     current->exitDate->month = atoi(line);
+    //     line = strtok(NULL, " ");
+    //     current->exitDate->year = atoi(line);
+    // }
+    // else
+    //     current->exitDate = NULL;
+
+    // current->next = NULL;
+    wordfree(&p);
     return current;
 }
 
@@ -108,6 +206,7 @@ void destroyPatientList(patientPtr patient)
     if (patient == NULL)
         return;
     destroyPatientList(patient->next);
+    free(patient->recordID);
     free(patient->country);
     free(patient->diseaseID);
     free(patient->entryDate);

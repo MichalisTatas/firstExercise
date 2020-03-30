@@ -3,15 +3,38 @@
 #include <stdlib.h>
 #include <string.h>
 
-treeNodePtr createNode(patientPtr patient, char* key)
+void preorder(treeNodePtr node)
+{
+    if (node != NULL)
+    {
+        printf ("%s\n", node->patient->recordID );//entryDate->day, node->patient->entryDate->month, node->patient->entryDate->year);
+        preorder(node->left);
+        preorder(node->right);
+    }
+}
+
+bool existInTree(treeNodePtr tree, patientPtr patient)
+{
+    treeNodePtr temp = tree;
+    while (temp != NULL) {
+        if (compareDates(tree->patient->entryDate, patient->entryDate) == 1)
+            temp = temp->left;
+        else if (compareDates(tree->patient->entryDate, patient->entryDate) == -1)
+            temp = temp->right;
+        else if (strcmp(tree->patient->recordID, patient->recordID) == 0)
+            return true;
+    }
+
+    return false;
+}
+
+treeNodePtr createNode(patientPtr patient)
 {
     treeNodePtr node = malloc(sizeof(treeNode));
     node->patient = patient;
     node->right = NULL;
     node->left = NULL;
     node->height = 1;
-    node->key = malloc(strlen(key) + 1);
-    strcpy(node->key, key);
     return node;
 }
 
@@ -64,14 +87,14 @@ int getBalance(treeNodePtr node)
     return getHeight(node->left) - getHeight(node->right);
 }
 
-treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient, char* key)
+treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient)
 {
     if (tree == NULL)
-        return (createNode(patient, key));
+        return (createNode(patient));
     if (compareDates(patient->entryDate, tree->patient->entryDate) == 1)
-        tree->right = AVLInsert(tree->right, patient, key);
+        tree->right = AVLInsert(tree->right, patient);
     else if (compareDates(patient->entryDate, tree->patient->entryDate) == -1)
-        tree->left = AVLInsert(tree->left, patient, key);
+        tree->left = AVLInsert(tree->left, patient);
     else
         return tree;                // if equal dont insert into tree
 
@@ -103,15 +126,6 @@ treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient, char* key)
     return tree;
 }
 
-void preorder(treeNodePtr node)
-{
-    if (node != NULL)
-    {
-        printf ("%d-%d-%d\n", node->patient->entryDate->day, node->patient->entryDate->month, node->patient->entryDate->year);
-        preorder(node->left);
-        preorder(node->right);
-    }
-}
 
 void AVLDestroy(treeNodePtr node)
 {
@@ -119,7 +133,6 @@ void AVLDestroy(treeNodePtr node)
     {
         AVLDestroy(node->left);
         AVLDestroy(node->right);
-        free(node->key);
         free(node);
     }
 }
