@@ -145,58 +145,26 @@ patientPtr createPatientStruct(char* line)
 
     wordexp_t p;
     wordexp(line, &p, 0);
-
     patientPtr current = malloc(sizeof(patient));
-    // char token[] = " -";
 
-    // line = strtok(line, " ");
     current->recordID = malloc(strlen(p.we_wordv[0]) + 1);
     strcpy(current->recordID, p.we_wordv[0]);
 
-    // line = strtok(NULL, " ");
     current->patientFirstName = malloc(strlen(p.we_wordv[1]) + 1);
     strcpy(current->patientFirstName, p.we_wordv[1]);
     
-    // line = strtok(NULL, " ");
     current->patientLastName = malloc(strlen(p.we_wordv[2]) + 1);
     strcpy(current->patientLastName, p.we_wordv[2]);
     
-    // line = strtok(NULL, " ");
     current->diseaseID = malloc(strlen(p.we_wordv[3]) + 1);
     strcpy(current->diseaseID, p.we_wordv[3]);
     
-    // line = strtok(NULL, " ");
     current->country = malloc(strlen(p.we_wordv[4]) + 1);
     strcpy(current->country, p.we_wordv[4]);
 
     current->entryDate = createDate(p.we_wordv[5]);
-
-    if (strcmp(p.we_wordv[6], "-"))
-        current->exitDate = createDate(p.we_wordv[6]);
-    else 
-        current->exitDate = NULL;
-    // current->entryDate = malloc(sizeof(date));
-    // line = strtok(NULL, "-");
-    // current->entryDate->day = atoi(line);
-    // line = strtok(NULL, "-");
-    // current->entryDate->month = atoi(line);
-    // line = strtok(NULL, " ");
-    // current->entryDate->year = atoi(line);
-
-    // line = strtok(NULL, token);
-
-    // if (strcmp(line, "-") ) {           //CHANGE THIS THING
-    //     current->exitDate = malloc(sizeof(date));
-    //     current->exitDate->day = atoi(line);
-    //     line = strtok(NULL, "-");
-    //     current->exitDate->month = atoi(line);
-    //     line = strtok(NULL, " ");
-    //     current->exitDate->year = atoi(line);
-    // }
-    // else
-    //     current->exitDate = NULL;
-
-    // current->next = NULL;
+    current->exitDate = createDate(p.we_wordv[6]);
+    current->next = NULL;
     wordfree(&p);
     return current;
 }

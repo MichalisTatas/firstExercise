@@ -7,12 +7,12 @@ ODIR = build
 IDIR = include
 SDIR = source
 
-EXECUTABLE = main
+EXECUTABLE = diseaseMonitor
 
-_DEPS = hashTable.h patient.h avlTree.h binaryHeap.h queue.h diseaseMonitor.h
+_DEPS = hashTable.h patient.h avlTree.h binaryHeap.h queue.h diseaseMonitor.h diseaseMonitorFunctions.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = main.o hashTable.o patient.o avlTree.o binaryHeap.o queue.o diseaseMonitor.o
+_OBJ = main.o hashTable.o patient.o avlTree.o binaryHeap.o queue.o diseaseMonitor.o diseaseMonitorFunctions.o
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 $(ODIR)/%.o: $(SDIR)/%.c $(DEPS)

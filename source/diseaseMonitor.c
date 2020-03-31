@@ -1,109 +1,4 @@
-#include "../include/hashTable.h"
-#include "../include/patient.h"
-#include "../include/avlTree.h"
 #include "../include/diseaseMonitor.h"
-#include <wordexp.h>
-
-int searchInTree(char* country, datePtr date1, datePtr date2, treeNodePtr tree)
-{
-    if (tree == NULL)
-        return 0;
-
-    int count =0;
-    if (tree != NULL) {
-        if (country == NULL || !strcmp(tree->patient->country, country))
-            if ((date1 == NULL && date2 == NULL) || ((compareDates(tree->patient->entryDate, date1) >= 0) && (compareDates(tree->patient->exitDate, date2) <= 0)) )
-                count ++;
-
-    }
-
-    count += (searchInTree(country, date1, date2, tree->left) + searchInTree(country, date1, date2, tree->right)); 
-
-    return count;
-}
-
-void function(char* virus, char* country, datePtr date1, datePtr date2, HashTablePtr diseaseHT)
-{
-    //this function will find the tree/trees i need to search in
-    HTNodePtr temp = NULL;
-
-    if (virus == NULL) {       // traverse the hash table
-        for (int i=0; i<diseaseHT->size; i++) {
-            temp = diseaseHT->table[i];
-            while (temp != NULL) {
-                for (int j=0; j<diseaseHT->ptrNum; j++) {
-                    if (temp->array[j] != NULL) {
-                        printf("%s : ", temp->array[j]->key);
-                        printf("%d \n",searchInTree(country, date1, date2, temp->array[j]->tree));
-                    }
-                }
-                temp = temp->next;
-            }
-        }
-    }
-    else {                     // use hash function to find bucket
-        int bucketNum = hashFunction(virus);
-        temp = diseaseHT->table[bucketNum];
-        while (temp != NULL) {
-            for (int j=0; j<diseaseHT->ptrNum; j++) {
-                if (!strcmp(virus, temp->array[j]->key)) {
-                    printf("%s ", temp->array[j]->key);
-                    printf("%d\n",searchInTree(country, date1, date2, temp->array[j]->tree));
-                    return;
-                }
-            }
-            temp = temp->next;
-        }
-    }
-}
-
-
-int countNullExitDates(treeNodePtr tree)
-{
-    if (tree == NULL)
-        return 0;
-    
-    int count = 0;
-    if (tree != NULL) {
-        if (tree->patient->exitDate == NULL)
-            count++;
-    }
-    count += (countNullExitDates(tree->left) + countNullExitDates(tree->right));
-    return count;
-}
-
-void printCurrPatients(char* disease, HashTablePtr diseaseHT)
-{
-    HTNodePtr temp = NULL;
-    if (disease != NULL) {
-        temp = diseaseHT->table[hashFunction(disease)];
-        while (temp != NULL) {
-            for (int i=0; i<diseaseHT->ptrNum; i++) {
-                if (!strcmp(temp->array[i]->key, disease)) {
-                    printf("%s ", disease);
-                    printf("%d\n",countNullExitDates(temp->array[i]->tree));
-                }
-            }
-            temp = temp->next;
-        }
-    }
-    else {
-        for (int j=0; j<diseaseHT->size; j++) {
-            temp = diseaseHT->table[j];
-            while (temp != NULL) {
-                            printf("TATAS");
-
-                for (int i=0; i<diseaseHT->ptrNum; i++) {
-                    if (temp->array[i] != NULL) {
-                        printf("%s ",temp->array[i]->key);
-                        printf("%d\n",countNullExitDates(temp->array[i]->tree));
-                    }
-               }
-               temp = temp->next;
-            }
-        }
-    }
-}
 
 int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHashtable, HashTablePtr countryHashtable, patientPtr head)
 {
@@ -113,31 +8,38 @@ int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHa
     wordexp(command, &p, 0);
 
     if (!strcmp(p.we_wordv[0], "/globalDiseaseStats")) {
-        if (p.we_wordc == 1 )
-            function(NULL, NULL, date1, date2, diseaseHashtable);
+        if (p.we_wordc == 1 ) {
+            char* dt = malloc(sizeof("00-00-00") + 1);
+            strcpy(dt, "00-00-00");
+            date1 = createDate(dt);
+            strcpy(dt, "0-0-9999");
+            date2 = createDate(dt);
+            statsFrequency(NULL, NULL, date1, date2, diseaseHashtable);
+            free(dt);
+        }
         else if(p.we_wordc == 3) {
             date1 = createDate(p.we_wordv[1]);
             date2 = createDate(p.we_wordv[2]);
-            function(NULL, NULL, date1, date2, diseaseHashtable);
-            free(date1);
-            free(date2);
+            statsFrequency(NULL, NULL, date1, date2, diseaseHashtable);
         }
         else {
             printf("number of arguments not right !\n");
             return -1;
         }
+        free(date1);
+        free(date2);
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/diseaseFrequency")) {
         if (p.we_wordc == 4) {
             date1 = createDate(p.we_wordv[2]);
             date2 = createDate(p.we_wordv[3]);
-            function(p.we_wordv[1], NULL, date1, date2, diseaseHashtable);
+            statsFrequency(p.we_wordv[1], NULL, date1, date2, diseaseHashtable);
         }
         else if (p.we_wordc == 5) {
             date1 = createDate(p.we_wordv[2]);
             date2 = createDate(p.we_wordv[3]);
-            function(p.we_wordv[1], p.we_wordv[4], date1, date2, diseaseHashtable);
+            statsFrequency(p.we_wordv[1], p.we_wordv[4], date1, date2, diseaseHashtable);
         }
         else {
             printf("number of arguments is not right");
@@ -149,11 +51,39 @@ int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHa
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/topk-Diseases")) {
-        printf("/topk-Diseases ali8eias\n");
+        if (p.we_wordc == 3) {
+            char* dt = malloc(sizeof("00-00-00") + 1);
+            strcpy(dt, "00-00-00");
+            date1 = createDate(dt);
+            strcpy(dt, "0-0-9999");
+            date2 = createDate(dt);
+            topkDiseases(countryHashtable, diseaseHashtable, date1, date2, atoi(p.we_wordv[1]), p.we_wordv[2]);
+            free(dt);
+        }
+        else if (p.we_wordc == 5) {
+            date1 = createDate(p.we_wordv[3]);
+            date2 = createDate(p.we_wordv[4]);
+            topkDiseases(countryHashtable, diseaseHashtable, date1, date2, atoi(p.we_wordv[1]), p.we_wordv[2]);
+        }
+        else {
+            printf("number of arguments is not right !\n");
+            return -1;
+        }
+        free(date1);
+        free(date2);
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/topk-Countries")) {
-        printf("/topk-Countries ali8eias\n");
+        if (p.we_wordc == 3) {
+
+        }
+        else if (p.we_wordc == 5) {
+
+        }
+        else {
+            printf("number of arguments is not right !\n");
+            return -1;
+        }
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/insertPatientRecord")) {

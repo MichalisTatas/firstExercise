@@ -2,46 +2,65 @@
 
 void QInit(QueuePtr Q)
 {
-    Q->front = NULL;
-    Q->rear = NULL;
+    Q->head = NULL;
+    Q->tail = NULL;
 }
 
-void QInsert(QueuePtr Q, QueueNodePtr node)
+bool QEmpty(QueuePtr Q)
+{
+    if (Q->head == NULL)
+        return true;
+    return false;
+}
+
+void QInsert(QueuePtr Q, BHNodePtr node)
 {
     QueueNodePtr temp = malloc(sizeof(QueueNode));
-    temp->name = malloc(strlen(node->name) + 1);
-    if (temp == NULL || temp->name == NULL) {
+
+    if (temp == NULL) {
         printf("system has no more space\n");
         return ;
     }
 
-    strcpy(temp->name, node->name);
-    temp->size = node->size;
+    temp->item = node;
 
     temp->next = NULL;
-    if (Q->rear == NULL) {
-        Q->front = temp;
-        Q->rear = temp;
+    if (Q->tail == NULL) {
+        Q->head = temp;
+        Q->tail = temp;
     }
     else {
-        Q->rear->next = temp;
-        Q->rear = temp;
+        Q->tail->next = temp;
+        Q->tail = temp;
     }
 }
 
-QueueNodePtr QRemove(QueuePtr Q)
+BHNodePtr QRemove(QueuePtr Q)
 {
     QueueNodePtr temp;
 
-    if(Q->front == NULL) {
-        printf ("trying to remove from empty q \n");
+    if(Q->head == NULL) {
+        // printf ("trying to remove from empty q \n");
         return NULL;
     }
     else {
-        temp = Q->front;
-        Q->front = temp->next;
-        if (Q->front == NULL)
-            Q->rear = NULL;
-        return temp;
+        temp = Q->head;
+        Q->head = temp->next;
+        if (Q->head == NULL)
+            Q->tail = NULL;
+        BHNodePtr node = temp->item;
+        free(temp);
+        return node;
     }
+}
+
+void QDestroy(QueuePtr Q)
+{
+    QueueNodePtr temp;
+    while (Q->head != NULL) {
+        temp = Q->head;
+        Q->head = Q->head->next;
+        free(temp);
+    }
+    free(Q);
 }
