@@ -1,0 +1,7 @@
+covid-2019 0
+evd 0
+flu-2018 0
+mers-cov 0
+h1n1 0
+sars-1 0
+sarscov-2 0

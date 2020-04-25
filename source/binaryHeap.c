@@ -36,7 +36,6 @@ void BHTreeInsert(BinaryHeapPtr BH, BHNodePtr node)
 {
     if (BH->root == NULL) {
         BH->root = node;
-        // QDestroy(Q);
         return;
     }
 
@@ -68,12 +67,10 @@ void swapInfo(BHNodePtr node1, BHNodePtr node2)
     char* node1key = malloc(strlen(node1->key) + 1);
     strcpy(node1key, node1->key);
 
-    // free(node1->key);
     node1->key = realloc(node1->key, strlen(node2->key) + 1);
     strcpy(node1->key, node2->key);
     node1->volume = node2->volume;
 
-    // free(node2->key);
     node2->key = realloc(node2->key, strlen(node1key) + 1);
     strcpy(node2->key, node1key);
     node2->volume = node1volume;
@@ -133,7 +130,7 @@ void BHInsert(BinaryHeapPtr BH, char* key, int volume)
         perror("malloc failed !");
         return;
     }
-    if ((node->key = malloc(sizeof(strlen(key) + 1))) == NULL) {
+    if ((node->key = malloc(strlen(key) + 1)) == NULL) {
         perror("malloc failed !");
         return;
     }

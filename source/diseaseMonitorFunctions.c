@@ -1,22 +1,5 @@
 #include "../include/diseaseMonitorFunctions.h"
 #include "../include/binaryHeap.h"
-// int searchInTree(char* country, datePtr date1, datePtr date2, treeNodePtr tree)
-// {
-//     if (tree == NULL)
-//         return 0;
-
-//     int count =0;
-//     if (tree != NULL) {
-//         if (country == NULL || !strcmp(tree->patient->country, country))
-//             if ((date1 == NULL && date2 == NULL) || ((compareDates(tree->patient->entryDate, date1) >= 0) && (compareDates(tree->patient->exitDate, date2) <= 0)) )
-//                 count ++;
-
-//     }
-
-//     count += (searchInTree(country, date1, date2, tree->left) + searchInTree(country, date1, date2, tree->right)); 
-
-//     return count;
-// }
 
 int searchInTree(char* country, char* disease, datePtr date1, datePtr date2, treeNodePtr tree)
 {
@@ -31,10 +14,17 @@ int searchInTree(char* country, char* disease, datePtr date1, datePtr date2, tre
     }
 
     int count =0;
+    patientPtr list;
     if (disease == NULL || !strcmp(tree->patient->diseaseID, disease)) {
         if (country == NULL || !strcmp(tree->patient->country, country)) {
-            if ((compareDates(tree->patient->entryDate, date1) >= 0) && (compareDates(tree->patient->exitDate, date2) <= 0))
-                count ++;
+            if ((compareDates(tree->patient->entryDate, date1) >= 0) && (compareDates(tree->patient->exitDate, date2) <= 0)) {
+                list = tree->patient;  //searches the list of patients because some may not be in the tree bcz they have the same date
+                while (list != NULL && compareDates(list->entryDate, tree->patient->entryDate)==0){
+                    count ++;
+                    list = list->next;
+                }
+                
+            }
         }
     }
 
@@ -46,7 +36,6 @@ int searchInTree(char* country, char* disease, datePtr date1, datePtr date2, tre
 
 void statsFrequency(char* virus, char* country, datePtr date1, datePtr date2, HashTablePtr diseaseHT)
 {
-    //this statsFrequency will find the tree/trees i need to search in
     HTNodePtr temp = NULL;
 
     if (virus == NULL) {       // traverse the hash table
@@ -55,8 +44,7 @@ void statsFrequency(char* virus, char* country, datePtr date1, datePtr date2, Ha
             while (temp != NULL) {
                 for (int j=0; j<diseaseHT->ptrNum; j++) {
                     if (temp->array[j] != NULL) {
-                        printf("%s : ", temp->array[j]->key);
-                        printf("%d \n",searchInTree(country, NULL, date1, date2, temp->array[j]->tree));
+                        printf("%s %d\n", temp->array[j]->key, searchInTree(country, NULL, date1, date2, temp->array[j]->tree));
                     }
                 }
                 temp = temp->next;
@@ -69,8 +57,7 @@ void statsFrequency(char* virus, char* country, datePtr date1, datePtr date2, Ha
         while (temp != NULL) {
             for (int j=0; j<diseaseHT->ptrNum; j++) {
                 if (!strcmp(virus, temp->array[j]->key)) {
-                    printf("%s ", temp->array[j]->key);
-                    printf("%d\n",searchInTree(country, NULL, date1, date2, temp->array[j]->tree));
+                    printf("%s %d\n", temp->array[j]->key, searchInTree(country, NULL, date1, date2, temp->array[j]->tree));
                     return;
                 }
             }
@@ -102,8 +89,7 @@ void printCurrPatients(char* disease, HashTablePtr diseaseHT)
         while (temp != NULL) {
             for (int i=0; i<diseaseHT->ptrNum; i++) {
                 if (!strcmp(temp->array[i]->key, disease)) {
-                    printf("%s ", disease);
-                    printf("%d\n",countNullExitDates(temp->array[i]->tree));
+                    printf("%s %d \n", disease, countNullExitDates(temp->array[i]->tree));
                 }
             }
             temp = temp->next;
@@ -113,12 +99,9 @@ void printCurrPatients(char* disease, HashTablePtr diseaseHT)
         for (int j=0; j<diseaseHT->size; j++) {
             temp = diseaseHT->table[j];
             while (temp != NULL) {
-                            printf("TATAS");
-
                 for (int i=0; i<diseaseHT->ptrNum; i++) {
                     if (temp->array[i] != NULL) {
-                        printf("%s ",temp->array[i]->key);
-                        printf("%d\n",countNullExitDates(temp->array[i]->tree));
+                        printf("%s %d \n",temp->array[i]->key, countNullExitDates(temp->array[i]->tree));
                     }
                }
                temp = temp->next;
@@ -147,7 +130,6 @@ void topkDiseases(HashTablePtr ht1, HashTablePtr ht2, datePtr date1, datePtr dat
             for (int i=0; i<ht2->ptrNum; i++) {
                 if (temp->array[i] != NULL) {
                     BHInsert(heap, temp->array[i]->key, searchInTree(key, temp->array[i]->key, date1, date2, tree));
-                    // printf ("%s %d\n", temp->array[i]->key, searchInTree(key, temp->array[i]->key, date1, date2, tree));
                 }
             }
             temp = temp->next;
@@ -157,7 +139,43 @@ void topkDiseases(HashTablePtr ht1, HashTablePtr ht2, datePtr date1, datePtr dat
     BHNodePtr bhnode = NULL;
     for (int i=0; i<k; i++) {
         bhnode = BHRemove(heap);
-        printf("%s %d\n", bhnode->key, bhnode->volume);
+        printf("%s %d \n", bhnode->key, bhnode->volume);
+        free(bhnode->key);
+        free(bhnode);
+    }
+    BHDestroy(heap);
+}
+
+void topkCountries(HashTablePtr ht1, HashTablePtr ht2, datePtr date1, datePtr date2, int k, char* key)
+{
+    HTNodePtr temp = ht1->table[hashFunction(key)];
+    treeNodePtr tree = NULL;
+    BinaryHeapPtr heap = BHInit();
+
+    while(temp != NULL){
+        for (int i=0; i<ht1->ptrNum; i++) {
+            if (!strcmp(temp->array[i]->key, key))
+                tree = temp->array[i]->tree;           //found the tree of the hash node with given key
+        }
+        temp = temp->next;
+    }
+
+    for (int j=0; j<ht2->size; j++) {
+        temp = ht2->table[j];
+        while (temp != NULL) {
+            for (int i=0; i<ht2->ptrNum; i++) {
+                if (temp->array[i] != NULL) {
+                    BHInsert(heap, temp->array[i]->key, searchInTree(temp->array[i]->key, key, date1, date2, tree));
+                }
+            }
+            temp = temp->next;
+        }
+    }
+
+    BHNodePtr bhnode = NULL;
+    for (int i=0; i<k; i++) {
+        bhnode = BHRemove(heap);
+        printf("%s %d \n", bhnode->key, bhnode->volume);
         free(bhnode->key);
         free(bhnode);
     }

@@ -3,16 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void preorder(treeNodePtr node)
-{
-    if (node != NULL)
-    {
-        printf ("%s\n", node->patient->recordID );//entryDate->day, node->patient->entryDate->month, node->patient->entryDate->year);
-        preorder(node->left);
-        preorder(node->right);
-    }
-}
-
 bool existInTree(treeNodePtr tree, patientPtr patient)
 {
     treeNodePtr temp = tree;
@@ -99,8 +89,6 @@ treeNodePtr AVLInsert(treeNodePtr tree, patientPtr patient)
         return tree;                // if equal dont insert into tree
 
     tree->height = 1 + max(getHeight(tree->left), getHeight(tree->right));
-
-// DO I NEED TO CHECK IF TREE IS NULL ?????
 
     //right right
     if (getHeight(tree->left) - getHeight(tree->right) < -1 && compareDates(tree->right->patient->entryDate, patient->entryDate) == -1)

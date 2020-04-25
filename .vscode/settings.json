@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "diseasemonitorfunctions.h": "c",
+        "binaryheap.h": "c"
+    }
+}

@@ -1,0 +1,2 @@
+gcc -g3 -Wall -c source/diseaseMonitor.c -o build/diseaseMonitor.o 
+gcc -g3 -Wall build/main.o build/hashTable.o build/patient.o build/avlTree.o build/binaryHeap.o build/queue.o build/diseaseMonitor.o build/diseaseMonitorFunctions.o -o diseaseMonitor 

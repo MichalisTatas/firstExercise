@@ -40,7 +40,6 @@ BHNodePtr QRemove(QueuePtr Q)
     QueueNodePtr temp;
 
     if(Q->head == NULL) {
-        // printf ("trying to remove from empty q \n");
         return NULL;
     }
     else {

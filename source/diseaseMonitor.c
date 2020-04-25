@@ -2,21 +2,18 @@
 
 int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHashtable, HashTablePtr countryHashtable, patientPtr head)
 {
-
-    datePtr date1=NULL, date2=NULL;
+    char* dt = malloc(strlen("00-00-00") + 1);
+    strcpy(dt, "00-00-00");
+    datePtr date1 = createDate(dt);
+    strcpy(dt, "0-0-9999");
+    datePtr date2 = createDate(dt);
+    
     wordexp_t p;
     wordexp(command, &p, 0);
 
     if (!strcmp(p.we_wordv[0], "/globalDiseaseStats")) {
-        if (p.we_wordc == 1 ) {
-            char* dt = malloc(sizeof("00-00-00") + 1);
-            strcpy(dt, "00-00-00");
-            date1 = createDate(dt);
-            strcpy(dt, "0-0-9999");
-            date2 = createDate(dt);
+        if (p.we_wordc == 1 )
             statsFrequency(NULL, NULL, date1, date2, diseaseHashtable);
-            free(dt);
-        }
         else if(p.we_wordc == 3) {
             date1 = createDate(p.we_wordv[1]);
             date2 = createDate(p.we_wordv[2]);
@@ -26,8 +23,6 @@ int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHa
             printf("number of arguments not right !\n");
             return -1;
         }
-        free(date1);
-        free(date2);
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/diseaseFrequency")) {
@@ -51,15 +46,8 @@ int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHa
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/topk-Diseases")) {
-        if (p.we_wordc == 3) {
-            char* dt = malloc(sizeof("00-00-00") + 1);
-            strcpy(dt, "00-00-00");
-            date1 = createDate(dt);
-            strcpy(dt, "0-0-9999");
-            date2 = createDate(dt);
+        if (p.we_wordc == 3)
             topkDiseases(countryHashtable, diseaseHashtable, date1, date2, atoi(p.we_wordv[1]), p.we_wordv[2]);
-            free(dt);
-        }
         else if (p.we_wordc == 5) {
             date1 = createDate(p.we_wordv[3]);
             date2 = createDate(p.we_wordv[4]);
@@ -74,16 +62,19 @@ int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHa
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/topk-Countries")) {
-        if (p.we_wordc == 3) {
-
-        }
+        if (p.we_wordc == 3)
+            topkCountries(diseaseHashtable, countryHashtable, date1, date2, atoi(p.we_wordv[1]), p.we_wordv[2]);
         else if (p.we_wordc == 5) {
-
+            date1 = createDate(p.we_wordv[3]);
+            date2 = createDate(p.we_wordv[4]);
+            topkCountries(diseaseHashtable, countryHashtable, date1, date2, atoi(p.we_wordv[1]), p.we_wordv[2]);
         }
         else {
             printf("number of arguments is not right !\n");
             return -1;
         }
+        free(date1);
+        free(date2);
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/insertPatientRecord")) {
@@ -127,12 +118,10 @@ int diseaseMonitor(char* command, patientPtr patientList, HashTablePtr diseaseHa
         wordfree(&p);
     }
     else if (!strcmp(p.we_wordv[0], "/exit")) {
-        // patientPtr temp = head;
-        // while(temp->next != NULL){
-        //     printf("%s --> %d %d %d\n", temp->recordID, temp->exitDate->day, temp->exitDate->month, temp->exitDate->year);
-        //     temp=temp->next;
-        // }
         printf("exiting\n");
+        free(dt);
+        free(date1);
+        free(date2);
         HTDestroy(diseaseHashtable);
         HTDestroy(countryHashtable);
         destroyPatientList(patientList);
